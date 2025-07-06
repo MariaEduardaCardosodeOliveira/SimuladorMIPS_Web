@@ -14,14 +14,17 @@ Este projeto é um **Simulador MIPS interativo** que executa código em linguage
 
 ```bash
 pip install fastapi uvicorn pydantic
+```
 
 ### 2. Execute o backend
 
 - **No diretório onde está o arquivo main.py:**
+```bash
 uvicorn main:app --reload
+```
 
 ### 3. Execute o frontend
-- Abra o arquivo index.html no seu navegador (basta dar dois cliques ou abrir com o botão direito > "Abrir com navegador").
+- Abra o arquivo **index.html** no seu navegador (basta dar dois cliques ou abrir com o botão direito > "Abrir com navegador").
 
 ## Funcionalidades
 
