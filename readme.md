@@ -2,6 +2,9 @@
 
 Este projeto é um **Simulador MIPS interativo** que executa código em linguagem Assembly MIPS, instrução por instrução, exibindo o conteúdo dos registradores, memória, programa e instruções em binário. É ideal para fins didáticos e estudo de Arquitetura e Organização de Computadores.
 
+⚠️ Observação: Este simulador é focado em execução prática de instruções MIPS e chamadas de sistema, com suporte a entrada direta. Diretivas como 
+.data, .text e rótulos foram omitidas intencionalmente para simplificar o foco didático na execução das instruções, registradores e memória. As strings e valores são carregados diretamente, como se já estivessem resolvidos pelo assembler.
+
 ## Como Executar o Projeto
 
 ### Pré-requisitos
@@ -20,7 +23,7 @@ pip install fastapi uvicorn pydantic
 
 - **No diretório onde está o arquivo main.py:**
 ```bash
-uvicorn main:app --reload
+python -m uvicorn backend.main:app --reload
 ```
 
 ### 3. Execute o frontend
