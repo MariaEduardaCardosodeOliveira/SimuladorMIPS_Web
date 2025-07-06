@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador MIPS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Simulador MIPS</h1>
+      <p>Execução passo a passo ou completa com relatório</p>
+    </header>
+
+    <section class="painel">
+      <div class="coluna">
+        <label for="codigo">Código MIPS</label>
+        <textarea id="codigo" placeholder="Exemplo: li $t0, 5
+li $t1, 10
+add $t2, $t0, $t1"></textarea>
+        <button onclick="carregarCodigo()">Carregar Código</button>
+        <button onclick="executarPasso()">Executar Passo</button>
+        <button onclick="executarTudo()">Executar Tudo</button>
+        <button onclick="executarDevagar()">Executar Devagar</button>
+        <button onclick="mostrarRelatorio()">Relatório Final</button>
+      </div>
+      <div class="coluna">
+        <h3>Saída</h3>
+        <pre id="saida">Nenhuma saída ainda.</pre>
+        <h3>Registradores</h3>
+        <pre id="registradores">Nenhum dado disponível</pre>
+        <h3>Memória</h3>
+        <pre id="memoria">Nenhuma memória usada</pre>
+        <h3>PC</h3>
+        <pre id="pc">0</pre>
+        <h3>Instruções em Binário</h3>
+        <pre id="binarios">Nenhum binário ainda</pre>
+      </div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
