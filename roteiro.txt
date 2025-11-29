@@ -1,0 +1,149 @@
+🟦 1. Introdução (o que é o projeto)
+
+“Esse projeto é um mini simulador RISC-V de 32 bits, ciclo único.
+Ele executa instruções escrita em Assembly RISC-V, mostrando registradores, memória, PC e a instrução em binário.
+Ele segue o datapath apresentado em aula: fetch, decode, execute, memory e write-back.”
+
+🟦 2. Como o simulador funciona por dentro (explicação curta)
+
+“Eu represento as instruções como strings.
+Cada vez que executo um passo, eu:
+
+leio a instrução
+
+separo os argumentos
+
+identifico se ela é R, I ou S
+
+gero o binário correspondente
+
+executo a operação na ULA
+
+atualizo o registrador ou memória
+
+avanço o PC.”
+
+🟦 3. Como os registradores são representados
+
+“Os registradores são uma lista de 32 inteiros.
+O índice 0 é o x0, e ele nunca altera porque RISC-V não permite escrever nele.”
+
+self.regs = [0] * 32
+
+🟦 4. Como a memória foi implementada
+
+“A memória é um dicionário simples (dict) onde a chave é o endereço e o valor é o dado.
+É uma forma didática, já que o objetivo não é simular bytes reais.”
+
+🟦 5. Como cada tipo de instrução é tratado
+
+“Eu implementei classes para R, I e S apenas para gerar o binário de forma correta.
+A execução da instrução é feita diretamente na função passo().”
+
+🟦 6. Como a ULA funciona
+
+“Na ULA eu verifico o funct3 (e às vezes o funct7) e executo a operação correspondente:
+ADD, SUB, MULT, AND, OR, SLL, SLT.
+Nas instruções tipo I eu uso o imediato no lugar do segundo registrador.”
+
+🟦 7. Como o binário é gerado
+
+“Cada classe monta o binário seguindo o padrão RISC-V:
+funct7 rs2 rs1 funct3 rd opcode para instruções tipo R.”
+
+🟦 8. Como o PC funciona
+
+“Cada linha corresponde a uma instrução, então eu incremento o PC apenas +1.
+Não uso bytes reais porque o objetivo do simulador é didático.”
+
+🟦 9. Como a interface gráfica conversa com o backend
+
+“O frontend chama as rotas /carregar, /passo e /executar do backend.
+O backend devolve o estado atualizado dos registradores, memória, PC e saída.
+A interface apenas exibe esses dados.”
+
+🟩 PARTE 2 — PERGUNTAS QUE O PROFESSOR PODE FAZER (E RESPOSTAS PRONTAS)
+
+Essas são exatamente do tipo que o seu professor faz para tentar pegar aluno.
+
+🟦 🔸 Pergunta 1 — “Por que você usou Python?”
+
+“Usei Python porque ele facilita trabalhar com strings e listas, que é basicamente o que o simulador faz: parsing e execução linha a linha.
+Não é a linguagem mais eficiente, mas é ótima para prototipar e testar passo a passo.”
+
+🟦 🔸 Pergunta 2 — “Por que você não usou C?”
+
+“C deixaria tudo mais verboso e eu gastaria tempo lidando com ponteiros e buffers de texto.
+Como o foco é entender o datapath e a execução das instruções, preferi Python que me permite focar na lógica.”
+
+🟦 🔸 Pergunta 3 — “Como funciona o ADDI no seu simulador?”
+
+“No ADDI eu trato como instrução tipo I:
+pego rs1, pego o imediato estendido com sign extension, e faço a soma na ULA.
+Depois escrevo o resultado em rd.”
+
+🟦 🔸 Pergunta 4 — “Como você garante que x0 não seja alterado?”
+
+“No método set_reg eu verifico se o índice é 0.
+Se for, eu simplesmente retorno e não altero nada.”
+
+🟦 🔸 Pergunta 5 — “Como funciona o LW no seu simulador?”
+
+“Eu pego o endereço com rs1 + imediato, e uso esse endereço como chave do dicionário de memória.
+Se não existir, retorna zero.
+Depois coloco o valor em rd.”
+
+🟦 🔸 Pergunta 6 — “Por que o PC incrementa +1 e não +4?”
+
+“Porque cada linha do código corresponde a uma instrução.
+Eu não estou armazenando a memória de instruções em bytes reais, então +1 já representa ir para a próxima instrução.”
+
+🟦 🔸 Pergunta 7 — “Como você implementou o MULT se ele não existe no RISC-V base?”
+
+“Eu implementei MULT no formato da extensão M, usando funct7 = 1.
+É uma forma simples para permitir multiplicação no simulador didático.”
+
+🟦 🔸 Pergunta 8 — “Como você monta os campos do binário?”
+
+“Eu converto cada campo para binário com o número de bits correto (format(valor, '05b'), por exemplo)
+e concateno na ordem do formato R, I ou S.”
+
+🟦 🔸 Pergunta 9 — “Como funciona o sign extension?”
+
+“Eu verifico o bit 11 (mais significativo dos 12).
+Se for 1, replico para os bits mais altos, igual ao RISC-V.
+Se for 0, deixo o valor como está.”
+
+🟦 🔸 Pergunta 10 — “Como o frontend sabe que a execução acabou?”
+
+“O backend retorna finalizado: True quando o PC ultrapassa o número de instruções.
+A interface usa isso para bloquear a execução.”
+
+🟦 🔸 Pergunta 11 — “O que acontece se o usuário digitar uma instrução inválida?”
+
+“Eu adiciono uma mensagem de erro na saída:
+[ERRO] Instrução não reconhecida
+e pulo para a próxima linha.”
+
+Simples, natural.
+
+🟩 PARTE 3 — RESPOSTAS CURTAS PARA NA HORA DA APRESENTAÇÃO
+✔ “O que é o simulador?”
+
+“É uma implementação em software do datapath de ciclo único do RISC-V.”
+
+✔ “Como você executa uma instrução?”
+
+“Busco → decodifico → executo → escrevo resultado → avanço PC.”
+
+✔ “Por que sua memória é um dicionário?”
+
+“Porque é mais simples para um simulador didático.”
+
+✔ “Como o binário aparece na interface?”
+
+“Toda instrução implementada gera seu binário via método to_binary().”
+
+✔ “O que a interface faz?”
+
+“Exibe o estado que o backend manda. Ela não executa nada.”

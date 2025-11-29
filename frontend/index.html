@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Simulador MIPS</title>
+  <title>Simulador RISC-V</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Simulador MIPS</h1>
+      <h1>Simulador RISC-V</h1>
       <p>Execução passo a passo ou completa com relatório</p>
     </header>
 
     <section class="painel">
       <div class="coluna">
-        <h3 for="codigo">Código MIPS</h3>
-        <textarea id="codigo" placeholder="Exemplo: li $t0, 5
-li $t1, 10
-add $t2, $t0, $t1"></textarea>
+        <h3 for="codigo">Código RISC-V</h3>
+        <textarea id="codigo" placeholder="Exemplo: addi x5, x0, 5
+addi x6, x0, 10
+add x7, x5, x6"></textarea>
         <button onclick="carregarCodigo()">Carregar Código</button>
         <button onclick="executarPasso()">Executar Passo</button>
         <button onclick="executarTudo()">Executar Tudo</button>
